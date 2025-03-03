@@ -1,4 +1,5 @@
 import { Scene } from 'phaser';
+import { GameManager } from '../game-manager';
 
 /** 
  * First scene of the game. 
@@ -15,8 +16,9 @@ export class Boot extends Scene {
 
     create() {
         this.cameras.main.setBackgroundColor(0x302d2d);
+        new GameManager();
 
-        this.scene.start('Preloader');
+        this.scene.start('Game');
         this.scene.launch('ScreenBackgroundColor');
     }
 }

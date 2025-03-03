@@ -1,3 +1,6 @@
+import Map from "rot-js/lib/map/map";
+import Digger from "rot-js/lib/map/digger";
+
 /** 
  * Used to make ASCII roguelike levels that fit the game. 
  * For now this is largely a placeholder until more sophisticated
@@ -22,6 +25,8 @@
  * */
 export class LevelGenerator {
 
+    private inView: number[][] = [[]];
+
     /** Will generate a level based on seed and RNG. */
     public generateLevel(): string[][] {
         return this.spawnRoomTest();
@@ -37,5 +42,33 @@ export class LevelGenerator {
         retVal.push("###A..#".split(''));
         retVal.push("#######".split(''));
         return retVal;
+    }
+
+    /** 
+     * Makes a new room on the heavens gate dungeon. 
+     * Rooms -1 entrance and 0 base floor are more or less pre generated
+     * and so is the winning floor 72. 
+     * 
+     * @param floor what floor to generate. Some are premade. Difficulty increases. From -1 to 72.
+     */
+    public generateDungeonRoomForHeavensGate(floor: number): string[][] {
+        let room: string[][] = [];
+        if (floor === -1) {
+            // yard leading up to the tower
+            // in smaller scale
+            room.push(["0000000000"])
+            room.push(["000####000"])
+            room.push(["00######00"])
+            room.push(["00######00"])
+            room.push(["000#^^#000"])
+            room.push(["0000000000"])
+            room.push(["0000000000"])
+            room.push(["0000000000"])
+            room.push(["0000000000"]) 
+            room.push(["0000000000"])
+            // player is at 1, 5
+        }
+
+        return room;
     }
 }
