@@ -13,16 +13,18 @@ export class LevelRenderer extends Scene {
     private cellHeight: number = 0;
     private gridStartX: number = 0;
     private gridStartY: number = 0;
+    public static Instance: LevelRenderer;
 
     /** Style and other info for spawned entities */
     private entitySpawnConfigs: Map<string, EntityConfig> = new Map<string, EntityConfig>([
         ['@', { textStyle: {} }],
-        ['.', { textStyle: {color: "#2C3112FF"}}],
-        ['#', { textStyle: {color: "#2C3112FF", backgroundColor: "#B143B1FF"}}]
+        ['.', { textStyle: { color: "#2C3112FF" } }],
+        ['#', { textStyle: { color: "#2C3112FF", backgroundColor: "#B143B1FF" }, description: 'Wall.' }]
     ]);
 
     constructor() {
         super('LevelRenderer');
+        LevelRenderer.Instance = this;
     }
 
     create() {
@@ -33,21 +35,22 @@ export class LevelRenderer extends Scene {
         this.gridStartX = width * 0.5 - 4.7 * this.cellWidth;
         this.gridStartY = height * 0.05;
 
-        // uncomment grid if needed for visualization
-        // this.add.grid(
-        //     this.gridStartX - this.cellWidth * 0.25,
-        //     this.gridStartY - this.cellHeight * 0.5,
-        //     this.cellWidth * 10,
-        //     this.cellHeight * 10,
-        //     this.cellWidth,
-        //     this.cellHeight,
-        //     0xffffff,
-        //     0.2,
-        //     0xffffff,
-        //     1
-        // )
-        //     .setOrigin(0);
-        this.spawnMapEntities();
+        const showGrid: boolean = false;
+        if (showGrid) {
+            this.add.grid(
+                this.gridStartX - this.cellWidth * 0.25,
+                this.gridStartY - this.cellHeight * 0.5,
+                this.cellWidth * 10,
+                this.cellHeight * 10,
+                this.cellWidth,
+                this.cellHeight,
+                0xffffff,
+                0.2,
+                0xffffff,
+                1
+            )
+                .setOrigin(0);
+        }
     }
 
     public spawnMapEntities(): void {
@@ -56,8 +59,14 @@ export class LevelRenderer extends Scene {
             const row = Level.dungeonBaseLayer[i];
 
             for (let j = 0; j < row.length; j++) {
-                this.add.text(this.gridX(j), this.gridY(i), row[j], { fontSize: 52, ...this.entitySpawnConfigs.get(row[j])?.textStyle })
-                    .setOrigin(0.5, 0.5);
+                this.add.text(this.gridX(j), this.gridY(i), row[j],
+                    { fontSize: 52, ...this.entitySpawnConfigs.get(row[j])?.textStyle }
+                )
+                    .setOrigin(0.5, 0.5)
+                    .setInteractive()
+                    .on('pointerover', () => console.log(
+                        this.entitySpawnConfigs.get(row[j])?.description ?? '')
+                    );
             }
         }
     }

@@ -18,6 +18,7 @@ export class Boot extends Scene {
         this.cameras.main.setBackgroundColor(0x302d2d);
         new GameManager();
 
+        this.scene.launch('LevelRenderer');
         this.scene.start('Game');
         this.scene.launch('ScreenBackgroundColor');
     }

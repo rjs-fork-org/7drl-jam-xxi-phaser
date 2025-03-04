@@ -30,6 +30,5 @@ export class Game extends Scene {
 
         // Show map and begin game loop.
         GameManager.Instance.startGame();
-        this.scene.launch('LevelRenderer');
     }
 }
