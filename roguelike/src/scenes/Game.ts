@@ -19,14 +19,14 @@ export class Game extends Scene {
     /** Create UI and start the game. */
     create() {
         this.camera = this.cameras.main;
-        const { width, height } = this.scale;
+        // const { width, height } = this.scale;
 
-        // Placeholder text.
-        this.add.text(width * 0.5, height * 0.5, 'Insert Gameplay here.', {
-            fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
-            stroke: '#000000', strokeThickness: 8,
-            align: 'center'
-        }).setOrigin(0.5);
+        // // Placeholder text.
+        // this.add.text(width * 0.5, height * 0.5, 'Insert Gameplay here.', {
+        //     fontFamily: 'Arial Black', fontSize: 38, color: '#ffffff',
+        //     stroke: '#000000', strokeThickness: 8,
+        //     align: 'center'
+        // }).setOrigin(0.5);
 
         // Show map and begin game loop.
         GameManager.Instance.startGame();
