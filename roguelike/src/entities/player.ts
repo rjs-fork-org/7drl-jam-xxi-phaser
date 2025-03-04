@@ -1,5 +1,6 @@
 import { Attributes } from "../character-creation/attributes";
 import { AncestryType } from "../enums/ancestry-type";
+import { Entity } from "./entity";
 
 /** 
  * The main player script that holds data about the player but PlayerController
@@ -7,7 +8,7 @@ import { AncestryType } from "../enums/ancestry-type";
  * 
  * Stub until game logic has been designed & diagrammed.
  */
-export class Player {
+export class Player extends Entity {
     /** Ancestry as a string presentation. */
     private ancestryName: string = 'Human';
     /** Ancestry as enum. */
@@ -32,6 +33,7 @@ export class Player {
 
     /** Sets up the singleton. */
     constructor() {
+        super();
         Player.Instance = this;
     }
 
@@ -39,7 +41,7 @@ export class Player {
     public setAncestry(ancestryType: AncestryType, ancestryName: string): void {
         /* eslint-disable-next-line prefer-rest-params -- Don't think this rule applies here. */
         console.log(Player.name, this.setAncestry.name, ...arguments);
-        
+
         this.ancestryName = ancestryName;
         this.ancestryType = ancestryType;
     }

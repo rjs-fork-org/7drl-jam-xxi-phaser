@@ -1,6 +1,5 @@
 import { Ancestries } from "./character-creation/ancestries";
 import { LevelGenerator } from "./dungeon-utils/level-generator";
-import { LevelRenderer } from "./dungeon-utils/level-renderer";
 import { Player } from "./entities/player";
 
 /** 
@@ -28,11 +27,9 @@ export class GameManager {
     public startGame(): void {
         console.log('Game started on GameManager.');
         this.levelGen = new LevelGenerator();
-        // console.log('level:\n' + this.levelGen.generateLevel().join('\n'));
-        console.log(this.levelGen.generateDungeonRoomForHeavensGate(1));
+
+        console.log(LevelGenerator.generateDungeonRoomForHeavensGate(-1).flat());
 
         console.log(Player.Instance);
-
-        new LevelRenderer();
     }
 }

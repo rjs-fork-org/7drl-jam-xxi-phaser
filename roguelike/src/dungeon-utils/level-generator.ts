@@ -1,5 +1,4 @@
-import Map from "rot-js/lib/map/map";
-import Digger from "rot-js/lib/map/digger";
+import { Map } from "./map";
 
 /** 
  * Used to make ASCII roguelike levels that fit the game. 
@@ -51,24 +50,88 @@ export class LevelGenerator {
      * 
      * @param floor what floor to generate. Some are premade. Difficulty increases. From -1 to 72.
      */
-    public generateDungeonRoomForHeavensGate(floor: number): string[][] {
-        let room: string[][] = [];
+    public static generateDungeonRoomForHeavensGate(floor: number): string[][] {
+        const room: string[][] = [];
+        let playerPosXY: number[] = [];
+        const x = 0;
+        const y = 1;
         if (floor === -1) {
             // yard leading up to the tower
             // in smaller scale
-            room.push(["0000000000"])
-            room.push(["000####000"])
-            room.push(["00######00"])
-            room.push(["00######00"])
-            room.push(["000#^^#000"])
-            room.push(["0000000000"])
-            room.push(["0000000000"])
-            room.push(["0000000000"])
-            room.push(["0000000000"]) 
-            room.push(["0000000000"])
+            room.push(["........⚶."])
+            room.push(["...####..."])
+            room.push(["..######.."])
+            room.push(["..######.."])
+            room.push(["..⚘#^^#⚘.."])
+            room.push(["....::...."])
+            room.push(["..ȹ.::.ȹ.."])
+            room.push(["....::...."])
+            room.push(["..ȹ.::.ȹ.."])
+            room.push(["....::...."])
             // player is at 1, 5
+            playerPosXY[x] = 1;
+            playerPosXY[y] = 5;
+            // You have arrived at your trial
+            // the gate to heaven, will you ascend?
+            // or will you fall?
+            // For the ascended shall be light 
+            // as upper plane angels. Wonder if that's true.
+            //  
+            // the tower goes up to the clouds, so will I.
+            //
+            // Remember what the fortune teller said.
+            // This is only a giant's leap, 
+            // there's many more to take.
+        }
+        else if (floor === 0) {
+            room.push(["..######.."])
+            room.push([".#..~~..#."])
+            room.push(["#.......^#"])
+            room.push(["#........#"])
+            room.push(["#........#"])
+            room.push(["#........#"])
+            room.push(["#........#"])
+            room.push(["#........#"])
+            room.push(["⚘#......#⚘"])
+            room.push([".⚘##==##⚘."])
+            // player is at 0, 4/5
+            // the doors slam shut
+            // the signs read:
+            // many have come to seek gain
+            // the tower accepts their sacrifice
+            // ON REVISIT from yard revisit they say
+            // As you come you will leave.
+            // None can be given what is not earned.
+            // A journey filled with bodies, 
+            // of toil and thunder, is earned or plunder?
+            // AND
+            // If you believe in yourself, 
+            // cross the chasm of death, 
+            // fly to the sky. Meet us. 
+            // If not, sleep and never come back.
+            // WHEN GOING UPSTAIRS go to same floor
+            // WHEN GOING OUTSIDE there's now a chasm 
+            // when you go over it you are over 
+            // the emptiness and screen fades black
+            // YOU DIED (pause)
+            // After a long happy life.
+            // After you freed the land of evil.
+            // Your wings imbued with Spirit.
+            // Your mind full of trust.
+            // And with curiosity.
+            // Gained Corrupted Wings: Hover (Spi + 1).
+            // IF SLEEPING ^ +
+            // You never looked back, as no soul is perfect.
+            // You found your way and used the
+            // other blessings, the Horn Helmet, 
+            // The Forgotten Wisp, The Rings of Earthmother.
+            // And you felt, that what you gained that day
+            // kept your heels on the ground but raised your
+            // spirit to the sky.
+            // Gained Spi +1 (from 0 to 1).
         }
 
+        Map.dungeonBaseLayer = room.flat();
         return room;
     }
 }
