@@ -58,8 +58,8 @@ export class LevelGenerator {
         if (floor === -1) {
             // yard leading up to the tower
             // in smaller scale
-            room.push(["........⚶."])
-            room.push(["...####..."])
+            room.push([".........."])
+            room.push(["...####.⚶."])
             room.push(["..######.."])
             room.push(["..######.."])
             room.push(["..⚘#^^#⚘.."])

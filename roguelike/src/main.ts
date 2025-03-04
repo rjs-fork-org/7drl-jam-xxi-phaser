@@ -9,6 +9,7 @@ import { ScreenBackgroundColor } from './scenes/ScreenBackgroundColor';
 import { CharacterCreation } from './scenes/CharacterCreation';
 import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js'
 import { LevelRenderer } from './scenes/LevelRenderer';
+import { GameplayUi } from './scenes/GameplayUi';
 
 //  Find out more information about the Game Config at:
 //  https://newdocs.phaser.io/docs/3.70.0/Phaser.Types.Core.GameConfig
@@ -17,6 +18,7 @@ const config: Types.Core.GameConfig = {
     width: 1600,
     height: 900,
     parent: 'game-container',
+    disableContextMenu: true,
     dom: {
         createContainer: true
     },
@@ -42,6 +44,7 @@ const config: Types.Core.GameConfig = {
         MainMenu,
         CharacterCreation,
         MainGame,
+        GameplayUi,
         LevelRenderer,
         GameOver
     ]

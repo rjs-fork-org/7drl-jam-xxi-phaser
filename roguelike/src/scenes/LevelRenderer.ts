@@ -1,6 +1,7 @@
 import { Scene } from "phaser";
 import { Map as Level } from "../dungeon-utils/map";
 import { EntityConfig } from "../interfaces/entity-config";
+import { GameplayUi } from "./GameplayUi";
 
 /** 
  * Renders parts of the level what will become visible to the player.
@@ -64,9 +65,12 @@ export class LevelRenderer extends Scene {
                 )
                     .setOrigin(0.5, 0.5)
                     .setInteractive()
-                    .on('pointerover', () => console.log(
-                        this.entitySpawnConfigs.get(row[j])?.description ?? '')
-                    );
+                    .on('pointerover', () => {
+
+                        // console.log(this.entitySpawnConfigs.get(row[j])?.description ?? '');
+
+                        GameplayUi.Instance.updateYouSeeText(this.entitySpawnConfigs.get(row[j])?.description ?? '');
+                    });
             }
         }
     }

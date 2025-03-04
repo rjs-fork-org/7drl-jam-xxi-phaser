@@ -20,6 +20,7 @@ export class Boot extends Scene {
 
         this.scene.launch('LevelRenderer');
         this.scene.start('Game');
+        this.scene.launch('GameplayUi');
         this.scene.launch('ScreenBackgroundColor');
     }
 }
