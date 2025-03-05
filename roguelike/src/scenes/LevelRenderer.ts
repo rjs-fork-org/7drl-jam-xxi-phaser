@@ -33,8 +33,8 @@ export class LevelRenderer extends Scene {
         const { width, height } = this.scale;
         this.cellWidth = width * 0.02;
         this.cellHeight = width * 0.028;
-        this.gridStartX = width * 0.5 - 4.7 * this.cellWidth;
-        this.gridStartY = height * 0.05;
+        this.gridStartX = width * 0.5 - 4.5 * this.cellWidth;
+        this.gridStartY = height * 0.06;
 
         const showGrid: boolean = false;
         if (showGrid) {
