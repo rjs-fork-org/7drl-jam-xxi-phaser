@@ -30,10 +30,10 @@ export class Shaders {
         dc *= dc;
         
         uv.x -= 0.5;
-        uv.x *= 1.0 + (dc.y * (0.3 * curvature));
+        // uv.x *= 1.0 + (dc.y * (0.3 * curvature));
         uv.x += 0.5;
         uv.y -= 0.5;
-        uv.y *= 1.0 + (dc.x * (0.4 * curvature));
+        // uv.y *= 1.0 + (dc.x * (0.4 * curvature));
         uv.y *= -1.0; // otherwise upside down
         uv.y += 0.5;
     

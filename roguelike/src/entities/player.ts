@@ -1,14 +1,17 @@
+import { GameObjects } from "phaser";
 import { Attributes } from "../character-creation/attributes";
 import { AncestryType } from "../enums/ancestry-type";
 import { Entity } from "./entity";
 
 /** 
- * The main player script that holds data about the player but PlayerController
- * will be a separate script. 
- * 
- * Stub until game logic has been designed & diagrammed.
+ * The main player script that holds data about the player and commands. 
+ * PlayerController should be a separate script.
  */
 export class Player extends Entity {
+    // Representation in the field.
+    /** This moves in the level and represents the character, @. */
+    public charText: GameObjects.Text;
+    // Outcomes of character creation + HP, MP
     /** Ancestry as a string presentation. */
     private ancestryName: string = 'Human';
     /** Ancestry as enum. */

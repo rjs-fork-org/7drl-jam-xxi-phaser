@@ -1,4 +1,5 @@
-import { Map } from "./map";
+import { Player } from "../entities/player";
+import { Level } from "./map";
 
 /** 
  * Used to make ASCII roguelike levels that fit the game. 
@@ -69,8 +70,8 @@ export class LevelGenerator {
             room.push(["..ȹ.::.ȹ.."])
             room.push(["....::...."])
             // player is at 1, 5
-            playerPosXY[x] = 1;
-            playerPosXY[y] = 5;
+            playerPosXY[x] = 5;
+            playerPosXY[y] = 8;
             // You have arrived at your trial
             // the gate to heaven, will you ascend?
             // or will you fall?
@@ -131,7 +132,8 @@ export class LevelGenerator {
             // Gained Spi +1 (from 0 to 1).
         }
 
-        Map.dungeonBaseLayer = room.flat();
+        Level.dungeonBaseLayer = room.flat();
+        Player.Instance.setPosition(playerPosXY);
         return room;
     }
 }

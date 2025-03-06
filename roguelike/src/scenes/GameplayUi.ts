@@ -63,7 +63,7 @@ export class GameplayUi extends Scene {
         })
             .setOrigin(0.5);
 
-        this.addToLogText("You have arrived at your trial. Those who reach the top will be light as the upper plane beings. Wonder if that's true.")
+        this.addToLogText("You have arrived at your trial. Those who reach the top will become as light as upper plane beings. Wonder if that's true.")
     }
 
     /** Updates description text that is shown when user hovers a symbol. */

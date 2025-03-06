@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import { Input, Scene } from 'phaser';
 import { GameManager } from '../game-manager';
 
 /** 
@@ -6,7 +6,8 @@ import { GameManager } from '../game-manager';
  * and going through Character Creation. Alternatively load new game 
  * can be also used when that is implemented.
  * 
- * Stub until game logic has been designed & diagrammed.
+ * Atm used for grabbing player input as the scene has access to input
+ * plugin and as a general class movement could be part of game.
  */
 export class Game extends Scene {
     /** Main camera. */
@@ -30,5 +31,30 @@ export class Game extends Scene {
 
         // Show map and begin game loop.
         GameManager.Instance.startGame();
+    }
+
+    /** Processes input for the player. */
+    update() {
+        const upW: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        const upArrow: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
+        if (upW?.isDown || upArrow.isDown) {
+            console.log('up');
+        }
+        const downS: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S);
+        const downArrow: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
+        if (downS?.isDown || downArrow.isDown) {
+            console.log('down');
+        }
+        const leftA: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
+        const leftArrow: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+        if (leftA?.isDown || leftArrow.isDown) {
+            console.log('left');
+        }
+        const rightD: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        const rightArrow: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+        if (rightD?.isDown || rightArrow.isDown) {
+            console.log('right');
+        }
+
     }
 }
