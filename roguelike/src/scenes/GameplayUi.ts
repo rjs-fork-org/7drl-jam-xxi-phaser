@@ -55,6 +55,7 @@ export class GameplayUi extends Scene {
         this.logText = this.add.text(width * 0.34, height * 0.64,
             `gets replaced by addLogText(string)`,
             { fontSize: 42, wordWrap: { useAdvancedWrap: false, width: 600 } })
+            .setMaxLines(7);
 
         // Empty at first since nothing is selected.
         this.youSeeText = this.add.text(width * 0.5, height * 0.03, '', {
@@ -62,15 +63,7 @@ export class GameplayUi extends Scene {
         })
             .setOrigin(0.5);
 
-        this.addToLogText("Now adding more stuff.")
-        this.addToLogText("Lol1.")
-        this.addToLogText("Rofl.")
-        this.addToLogText("Lol2.")
-        this.addToLogText("Rofl.")
-        this.addToLogText("Now adding more stuff.")
-        this.addToLogText("Lol3.")
-        this.addToLogText("Rofl.")
-        this.addToLogText("Now adding more stuff.")
+        this.addToLogText("You have arrived at your trial. Those who reach the top will be light as the upper plane beings. Wonder if that's true.")
     }
 
     /** Updates description text that is shown when user hovers a symbol. */
@@ -83,9 +76,11 @@ export class GameplayUi extends Scene {
 
     /** Adds a line to the log and displays the latest log messages that fill the screen. */
     public addToLogText(textToAdd: string): void {
-        this.rawLog += textToAdd + '\n';
-        const logArr = this.rawLog.split('\n');
-        console.log(logArr);
-        this.logText.text = logArr.slice(-8).join('\n');
+        this.rawLog += textToAdd + ' ';
+        let latestEntries = this.rawLog.substring(this.rawLog.length - 149);
+        if (latestEntries[0] == latestEntries[0].toLowerCase()) {
+            latestEntries = latestEntries.substring(latestEntries.indexOf('.') + 2);
+        }
+        this.logText.text = latestEntries;
     }
 }
