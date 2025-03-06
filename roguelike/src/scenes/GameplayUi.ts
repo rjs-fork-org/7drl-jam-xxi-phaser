@@ -13,6 +13,8 @@ export class GameplayUi extends Scene {
     private logText: GameObjects.Text;
     private rawLog: string = '';
     public static Instance: GameplayUi;
+    private movementWarningDelayMs: number = 1000;
+    private onMovementWarningCooldown: boolean = false;
 
     constructor() {
         super('GameplayUi');
@@ -77,10 +79,20 @@ export class GameplayUi extends Scene {
     /** Adds a line to the log and displays the latest log messages that fill the screen. */
     public addToLogText(textToAdd: string): void {
         this.rawLog += textToAdd + ' ';
-        let latestEntries = this.rawLog.substring(this.rawLog.length - 149);
+        let latestEntries = this.rawLog.substring(this.rawLog.length - 140);
         if (latestEntries[0] == latestEntries[0].toLowerCase()) {
             latestEntries = latestEntries.substring(latestEntries.indexOf('.') + 2);
         }
         this.logText.text = latestEntries;
+    }
+
+    /** Prevents warning spam. */
+    public addMovementWarningToLog(warning: string): void {
+        if (this.onMovementWarningCooldown) {
+            return;
+        }
+        this.onMovementWarningCooldown = true;
+        this.time.delayedCall(this.movementWarningDelayMs, () => this.onMovementWarningCooldown = false);
+        this.addToLogText(warning);
     }
 }

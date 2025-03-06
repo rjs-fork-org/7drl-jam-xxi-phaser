@@ -1,5 +1,5 @@
 import { Player } from "../entities/player";
-import { Level } from "./map";
+import { Level } from "./level";
 
 /** 
  * Used to make ASCII roguelike levels that fit the game. 
@@ -53,9 +53,8 @@ export class LevelGenerator {
      */
     public static generateDungeonRoomForHeavensGate(floor: number): string[][] {
         const room: string[][] = [];
-        let playerPosXY: number[] = [];
-        const x = 0;
-        const y = 1;
+        let playerSpawnX: number = 0;
+        let playerSpawnY: number = 0;
         if (floor === -1) {
             // yard leading up to the tower
             // in smaller scale
@@ -67,11 +66,11 @@ export class LevelGenerator {
             room.push(["....::...."])
             room.push(["..ȹ.::.ȹ.."])
             room.push(["....::...."])
-            room.push(["..ȹ.::.ȹ.."])
+            room.push(["..ȹ.::.ȹ.#"])
             room.push(["....::...."])
             // player is at 1, 5
-            playerPosXY[x] = 5;
-            playerPosXY[y] = 8;
+            playerSpawnX = 5;
+            playerSpawnY = 8;
             // You have arrived at your trial
             // the gate to heaven, will you ascend?
             // or will you fall?
@@ -133,7 +132,8 @@ export class LevelGenerator {
         }
 
         Level.dungeonBaseLayer = room.flat();
-        Player.Instance.setPosition(playerPosXY);
+
+        Player.Instance.setPosition(playerSpawnX, playerSpawnY, false);
         return room;
     }
 }

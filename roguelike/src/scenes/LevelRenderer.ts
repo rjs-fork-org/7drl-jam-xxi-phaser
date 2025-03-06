@@ -1,5 +1,5 @@
 import { GameObjects, Scene } from "phaser";
-import { Level } from "../dungeon-utils/map";
+import { Level } from "../dungeon-utils/level";
 import { EntityConfig } from "../interfaces/entity-config";
 import { GameplayUi } from "./GameplayUi";
 import { Player } from "../entities/player";
@@ -78,9 +78,10 @@ export class LevelRenderer extends Scene {
 
     /** Spawns player to field. */
     public spawnPlayer(): void {
-        const gridPos: number[] = Player.Instance.positionXY;
+        const x = Player.Instance.x;
+        const y = Player.Instance.y;
         const char: GameObjects.Text = this.add.text(
-            this.gridX(gridPos[0]), this.gridY(gridPos[1]), '@',
+            this.gridX(x), this.gridY(y), '@',
             { fontSize: 52, ...this.entitySpawnConfigs.get('@')?.textStyle }
         )
             .setOrigin(0.5, 0.5)
@@ -90,8 +91,6 @@ export class LevelRenderer extends Scene {
                     this.entitySpawnConfigs.get('@')?.description ?? '');
             });
         Player.Instance.charText = char;
-        Level.baseLayerTexts.get(`${gridPos[1]},${gridPos[0]}`)
-            ?.setAlpha(0);
     }
 
     /** Returns tile coordinates from grid coordinates. */

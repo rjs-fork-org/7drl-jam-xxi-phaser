@@ -2,15 +2,14 @@ import { GameObjects } from "phaser";
 import { Attributes } from "../character-creation/attributes";
 import { AncestryType } from "../enums/ancestry-type";
 import { Entity } from "./entity";
+import { GameplayUi } from "../scenes/GameplayUi";
+import { Level } from "../dungeon-utils/level";
 
 /** 
  * The main player script that holds data about the player and commands. 
  * PlayerController should be a separate script.
  */
 export class Player extends Entity {
-    // Representation in the field.
-    /** This moves in the level and represents the character, @. */
-    public charText: GameObjects.Text;
     // Outcomes of character creation + HP, MP
     /** Ancestry as a string presentation. */
     private ancestryName: string = 'Human';
@@ -40,6 +39,46 @@ export class Player extends Entity {
         Player.Instance = this;
     }
 
+    // Movement
+    public moveRight(): void {
+        // if not on grid do nothing
+        if (this.x >= Level.levelHeight) {
+            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
+            return;
+        }
+        // see whats on right
+        if (Level.isUntravellableAt(this.x + 1, this.y)) {
+            // not ok to move
+            GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
+        }
+        else if (Level.isMonsterAt(this.x, this.y)) {
+            // not ok to move, attack monster instead
+        }
+        else {
+            // ok to move
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.x++;
+            this.setPosition(this.x, this.y);
+        }
+    }
+
+    public moveLeft(): void {
+        GameplayUi.Instance.addMovementWarningToLog(`Can't move left.`);
+
+    }
+
+    public moveUp(): void {
+        GameplayUi.Instance.addMovementWarningToLog(`Can't move up.`);
+
+    }
+
+    public moveDown(): void {
+        GameplayUi.Instance.addMovementWarningToLog(`Can't move down.`);
+
+    }
+
+    // Character creation
     /** Sets player's ancestry. */
     public setAncestry(ancestryType: AncestryType, ancestryName: string): void {
         /* eslint-disable-next-line prefer-rest-params -- Don't think this rule applies here. */
