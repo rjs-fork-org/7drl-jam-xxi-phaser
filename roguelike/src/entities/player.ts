@@ -51,7 +51,7 @@ export class Player extends Entity {
             // not ok to move
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }
-        else if (Level.isMonsterAt(this.x, this.y)) {
+        else if (Level.isMonsterAt(this.x + 1, this.y)) {
             // not ok to move, attack monster instead
         }
         else {
@@ -64,18 +64,60 @@ export class Player extends Entity {
     }
 
     public moveLeft(): void {
-        GameplayUi.Instance.addMovementWarningToLog(`Can't move left.`);
-
+        if (this.x <= 0) {
+            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
+            return;
+        }
+        if (Level.isUntravellableAt(this.x - 1, this.y)) {
+            GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
+        }
+        else if (Level.isMonsterAt(this.x - 1, this.y)) {
+            // not ok to move, attack monster instead
+        }
+        else {
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.x--;
+            this.setPosition(this.x, this.y);
+        }
     }
 
     public moveUp(): void {
-        GameplayUi.Instance.addMovementWarningToLog(`Can't move up.`);
-
+        if (this.y <= 0) {
+            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
+            return;
+        }
+        if (Level.isUntravellableAt(this.x, this.y - 1)) {
+            GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
+        }
+        else if (Level.isMonsterAt(this.x, this.y - 1)) {
+            // not ok to move, attack monster instead
+        }
+        else {
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.y--;
+            this.setPosition(this.x, this.y);
+        }
     }
 
     public moveDown(): void {
-        GameplayUi.Instance.addMovementWarningToLog(`Can't move down.`);
-
+        if (this.y >= Level.levelHeight) {
+            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
+            return;
+        }
+        if (Level.isUntravellableAt(this.x, this.y + 1)) {
+            GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
+        }
+        else if (Level.isMonsterAt(this.x, this.y + 1)) {
+            // not ok to move, attack monster instead
+        }
+        else {
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.y++;
+            this.setPosition(this.x, this.y);
+        }
     }
 
     // Character creation

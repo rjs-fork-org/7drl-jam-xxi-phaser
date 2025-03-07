@@ -40,7 +40,7 @@ export class Game extends Scene {
     update() {
         const upW: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.W);
         const upArrow: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.UP);
-        if (this.firstUpPress && upW?.isDown || upArrow.isDown) {
+        if (this.firstUpPress && (upW?.isDown || upArrow.isDown)) {
             Player.Instance.moveUp();
             this.firstUpPress = false;
         }
@@ -49,7 +49,7 @@ export class Game extends Scene {
         }
         const downS: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         const downArrow: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
-        if (this.firstDownPress && downS?.isDown || downArrow.isDown) {
+        if (this.firstDownPress && (downS?.isDown || downArrow.isDown)) {
             Player.Instance.moveDown();
             this.firstDownPress = false;
         }
@@ -58,7 +58,7 @@ export class Game extends Scene {
         }
         const leftA: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         const leftArrow: Input.Keyboard.Key = this.input.keyboard!.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
-        if (this.firstLeftPress && leftA?.isDown || leftArrow.isDown) {
+        if (this.firstLeftPress && (leftA?.isDown || leftArrow.isDown)) {
             Player.Instance.moveLeft();
             this.firstLeftPress = false;
         }
