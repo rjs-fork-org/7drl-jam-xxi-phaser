@@ -2,6 +2,7 @@ import { Ancestries } from "./character-creation/ancestries";
 import { Level } from "./dungeon-utils/level";
 import { LevelGenerator } from "./dungeon-utils/level-generator";
 import { Player } from "./entities/player";
+import { GameplayUi } from "./scenes/GameplayUi";
 import { LevelRenderer } from "./scenes/LevelRenderer";
 
 /** 
@@ -29,8 +30,26 @@ export class GameManager {
     public startGame(): void {
         console.log('Game started on GameManager.');
         this.levelGen = new LevelGenerator();
-        LevelGenerator.generateDungeonRoomForHeavensGate(-1);
+        Level.currentFloor = -1;
+        LevelGenerator.generateDungeonRoomForHeavensGate();
         LevelRenderer.Instance.spawnMapEntities();
         Level.baseLayerTexts.get(`${Player.Instance.y},${Player.Instance.x}`)?.setAlpha(0);
+    }
+
+    /** When in dungeon the player can go up a level from a '^' char */
+    public ascendFloor(): void {
+        Level.currentFloor++;
+        LevelGenerator.generateDungeonRoomForHeavensGate();
+        LevelRenderer.Instance.spawnMapEntities();
+        Level.baseLayerTexts.get(`${Player.Instance.y},${Player.Instance.x}`)?.setAlpha(0);
+    }
+
+    /** 
+     * Possible in areas accessible from world map.
+     * Going out of bounds there brings player back to world map. 
+     */
+    public goOutsideArea(): void {
+        // during jam going outside a dungeon area / town is not possible.
+        GameplayUi.Instance.addMovementWarningToLog(`Can't leave to world map.`);
     }
 }

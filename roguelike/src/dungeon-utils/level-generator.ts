@@ -51,7 +51,9 @@ export class LevelGenerator {
      * 
      * @param floor what floor to generate. Some are premade. Difficulty increases. From -1 to 72.
      */
-    public static generateDungeonRoomForHeavensGate(floor: number): string[][] {
+    public static generateDungeonRoomForHeavensGate(): string[][] {
+        // full demo should have about 72 + 3 floors + yard + first floor.
+        const floor = Math.min(Level.currentFloor, 75);
         const room: string[][] = [];
         let playerSpawnX: number = 0;
         let playerSpawnY: number = 0;
@@ -95,6 +97,8 @@ export class LevelGenerator {
             room.push(["⚘#......#⚘"])
             room.push([".⚘##==##⚘."])
             // player is at 0, 4/5
+            playerSpawnX = 4;
+            playerSpawnY = 9;
             // the doors slam shut
             // the signs read:
             // many have come to seek gain

@@ -4,6 +4,7 @@ import { AncestryType } from "../enums/ancestry-type";
 import { Entity } from "./entity";
 import { GameplayUi } from "../scenes/GameplayUi";
 import { Level } from "../dungeon-utils/level";
+import { GameManager } from "../game-manager";
 
 /** 
  * The main player script that holds data about the player and commands. 
@@ -43,11 +44,18 @@ export class Player extends Entity {
     public moveRight(): void {
         // if not on grid do nothing
         if (this.x >= Level.levelHeight) {
-            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
-            return;
+            GameManager.Instance.goOutsideArea();
+        }
+        else if (Level.isUpstairsAt(this.x + 1, this.y)) {
+            // proceed to next level
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.x++;
+            this.setPosition(this.x, this.y);
+            GameManager.Instance.ascendFloor()
         }
         // see whats on right
-        if (Level.isUntravellableAt(this.x + 1, this.y)) {
+        else if (Level.isUntravellableAt(this.x + 1, this.y)) {
             // not ok to move
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }

@@ -57,6 +57,10 @@ export class LevelRenderer extends Scene {
 
     /** Spawns everything else but monsters and player. */
     public spawnMapEntities(): void {
+        // first destroy entities.
+        Level.destroyItemsMonstersAndBaseLayerTexts();
+        Player.Instance.charText?.destroy();
+
         for (let i = 0; i < Level.dungeonBaseLayer.length; i++) {
             const row = Level.dungeonBaseLayer[i];
 
@@ -71,7 +75,6 @@ export class LevelRenderer extends Scene {
                     });
                 Level.baseLayerTexts.set(`${i},${j}`, char);
             }
-
         }
         this.spawnPlayer();
     }
