@@ -1,4 +1,5 @@
 import { Player } from "../entities/player";
+import { GameplayUi } from "../scenes/GameplayUi";
 import { Level } from "./level";
 
 /** 
@@ -98,7 +99,8 @@ export class LevelGenerator {
             room.push([".⚘##==##⚘."])
             // player is at 0, 4/5
             playerSpawnX = 4;
-            playerSpawnY = 9;
+            playerSpawnY = 8;
+            GameplayUi.Instance.addToLogText('The doors slam shut.')
             // the doors slam shut
             // the signs read:
             // many have come to seek gain

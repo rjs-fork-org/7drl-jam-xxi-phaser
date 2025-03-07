@@ -26,37 +26,37 @@ export class GameplayUi extends Scene {
         const { width, height } = this.scale;
 
         const outlines: GameObjects.Text = this.add.text(0, 0,
-            `*---Character---*                  *--Inventory--*
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               *-------Log--------*             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-|               |                  |             |
-*---------------*------------------*-------------*`, {
+            `*---Character---*                *---Inventory---*
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               |                |               |
+|               *----------------*---------------*
+|               |                                |
+|               |                                |
+|               |                                |
+|               |                                |
+|               |                                |
+|               |                                |
+*---------------*--------------------------------*`, {
             color: '#aaaaaa', fontSize: 53
         })
-
-        // Centered circle for placement help
-        // this.add.circle(width * 0.5, height * 0.55, 10, 0xffffff, 1)
 
         const baseShader = new Phaser.Display.BaseShader('Scanlines', Shaders.fragScanlines);
         this.add.shader(baseShader, 0, 0, width * 1, height * 1).setOrigin(0, 0);
 
+        // Centered circle for placement help
+        // this.add.circle(width * 0.5, height * 0.55, 10, 0xffffff, 1)
+
         this.logText = this.add.text(width * 0.34, height * 0.64,
             `gets replaced by addLogText(string)`,
-            { fontSize: 42, wordWrap: { useAdvancedWrap: false, width: 600 } })
+            { fontSize: 42, color: '#eeeeee', wordWrap: { width: 1050 } })
             .setMaxLines(7);
 
         // Empty at first since nothing is selected.
@@ -79,7 +79,7 @@ export class GameplayUi extends Scene {
     /** Adds a line to the log and displays the latest log messages that fill the screen. */
     public addToLogText(textToAdd: string): void {
         this.rawLog += textToAdd + ' ';
-        let latestEntries = this.rawLog.substring(this.rawLog.length - 140);
+        let latestEntries = this.rawLog.substring(this.rawLog.length - 275);
         if (latestEntries[0] == latestEntries[0].toLowerCase()) {
             latestEntries = latestEntries.substring(latestEntries.indexOf('.') + 2);
         }

@@ -35,7 +35,7 @@ export class LevelRenderer extends Scene {
         this.cellWidth = width * 0.02;
         this.cellHeight = width * 0.028;
         this.gridStartX = width * 0.5 - 4.5 * this.cellWidth;
-        this.gridStartY = height * 0.06;
+        this.gridStartY = height * 0.077;
 
         const showGrid: boolean = false;
         if (showGrid) {
@@ -65,13 +65,22 @@ export class LevelRenderer extends Scene {
             const row = Level.dungeonBaseLayer[i];
 
             for (let j = 0; j < row.length; j++) {
-                const char = this.add.text(this.gridX(j), this.gridY(i), row[j],
+                const char = this.add.text(
+                    this.gridX(j),
+                    this.gridY(i),
+                    row[j],
                     { fontSize: 52, ...this.entitySpawnConfigs.get(row[j])?.textStyle }
                 )
                     .setOrigin(0.5, 0.5)
                     .setInteractive()
                     .on('pointerover', () => {
-                        GameplayUi.Instance.updateYouSeeText(this.entitySpawnConfigs.get(row[j])?.description ?? '');
+                        GameplayUi.Instance.updateYouSeeText(
+                            this.entitySpawnConfigs.get(row[j])?.description ?? '');
+                    })
+                    .on('pointerout', () => {
+                        // Prevents 'Wall' desc. from lingering if cursor exits
+                        // the play area where wall is the outermost char.
+                        GameplayUi.Instance.updateYouSeeText('');
                     });
                 Level.baseLayerTexts.set(`${i},${j}`, char);
             }
