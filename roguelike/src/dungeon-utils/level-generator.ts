@@ -62,7 +62,7 @@ export class LevelGenerator {
         const room: string[] = [];
         let playerSpawnX: number = 0;
         let playerSpawnY: number = 0;
-        const stairSpawnPositionsXY: number[][] = [[8, 2], [2, 1], [1, 7], [8, 7]]
+        const stairSpawnPositionsXY: number[][] = [[8, 2], [2, 1], [1, 7], [7, 8]]
         if (floor === -1) {
             // yard leading up to the tower
             // in smaller scale
@@ -152,11 +152,11 @@ export class LevelGenerator {
             room.push("#........#")
             room.push(" #......# ")
             room.push("  ######  ")
-            let stairRow = room[stairSpawnPositionsXY[floor][1]];
-            console.log('stair should go to place: ' + stairSpawnPositionsXY[floor][0]);
-            stairRow = stairRow.slice(0, stairSpawnPositionsXY[floor][0]) + '^' + stairRow.slice(stairSpawnPositionsXY[floor][0] + 1);
+            let stairRow = room[stairSpawnPositionsXY[floor % 4][1]];
+            console.log('stair should go to place: ' + stairSpawnPositionsXY[floor % 4][0]);
+            stairRow = stairRow.slice(0, stairSpawnPositionsXY[floor % 4][0]) + '^' + stairRow.slice(stairSpawnPositionsXY[floor % 4][0] + 1);
             console.log(stairRow);
-            room[stairSpawnPositionsXY[floor][1]] = stairRow;
+            room[stairSpawnPositionsXY[floor % 4][1]] = stairRow;
             playerSpawnX = Player.Instance.x;
             playerSpawnY = Player.Instance.y;
         }
