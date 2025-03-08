@@ -165,7 +165,7 @@ export class LevelGenerator {
         for (let y = 0; y < room.length; y++) {
             for (let x = 0; x < room[y].length; x++) {
                 if (room[y][x] === '.' && Phaser.Math.Between(1, 100) >= 5) {
-                    // Level.dungeonMonsters.set(`${x},${y}`, new Foe());
+                    Level.dungeonMonsters.set(`${x},${y}`, new Foe());
                 }
             }
         }

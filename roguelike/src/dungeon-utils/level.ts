@@ -42,9 +42,9 @@ export class Level {
         this.dungeonItems.clear();
 
         this.dungeonMonsters.forEach(element => {
-            element.charText.destroy();
+            element.charText?.destroy();
         });
-        this.dungeonMonsters.clear();
+        this.dungeonMonsters = new Map<string, Entity>();
     }
 
     public static isUpstairsAt(x: number, y: number): boolean {
