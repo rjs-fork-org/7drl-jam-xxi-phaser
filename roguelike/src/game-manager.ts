@@ -51,6 +51,6 @@ export class GameManager {
     public goOutsideArea(): void {
         // during jam going outside a dungeon area / town is not possible.
         // could check if level.WordMapLeavable is true
-        GameplayUi.Instance.addMovementWarningToLog(`Can't leave to world map.`);
+        GameplayUi.Instance.addMovementWarningToLog(`Can't go back to world map.`);
     }
 }

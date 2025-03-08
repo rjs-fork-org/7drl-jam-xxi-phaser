@@ -49,8 +49,7 @@ export class Player extends Entity {
             // proceed to next level
             this.oldX = this.x;
             this.oldY = this.y;
-            this.x++;
-            this.setPosition(this.x, this.y);
+            this.setPosition(++this.x, this.y);
             GameManager.Instance.ascendFloor()
         }
         // see whats on right
@@ -65,17 +64,21 @@ export class Player extends Entity {
             // ok to move
             this.oldX = this.x;
             this.oldY = this.y;
-            this.x++;
-            this.setPosition(this.x, this.y);
+            this.setPosition(++this.x, this.y);
         }
     }
 
     public moveLeft(): void {
         if (this.x <= 0) {
-            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
-            return;
+            GameManager.Instance.goOutsideArea();
         }
-        if (Level.isUntravellableAt(this.x - 1, this.y)) {
+        else if (Level.isUpstairsAt(this.x - 1, this.y)) {
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.setPosition(--this.x, this.y);
+            GameManager.Instance.ascendFloor()
+        }
+        else if (Level.isUntravellableAt(this.x - 1, this.y)) {
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }
         else if (Level.isMonsterAt(this.x - 1, this.y)) {
@@ -84,17 +87,21 @@ export class Player extends Entity {
         else {
             this.oldX = this.x;
             this.oldY = this.y;
-            this.x--;
-            this.setPosition(this.x, this.y);
+            this.setPosition(--this.x, this.y);
         }
     }
 
     public moveUp(): void {
         if (this.y <= 0) {
-            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
-            return;
+            GameManager.Instance.goOutsideArea();
         }
-        if (Level.isUntravellableAt(this.x, this.y - 1)) {
+        else if (Level.isUpstairsAt(this.x, this.y - 1)) {
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.setPosition(this.x, --this.y);
+            GameManager.Instance.ascendFloor()
+        }
+        else if (Level.isUntravellableAt(this.x, this.y - 1)) {
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }
         else if (Level.isMonsterAt(this.x, this.y - 1)) {
@@ -103,17 +110,21 @@ export class Player extends Entity {
         else {
             this.oldX = this.x;
             this.oldY = this.y;
-            this.y--;
-            this.setPosition(this.x, this.y);
+            this.setPosition(this.x, --this.y);
         }
     }
 
     public moveDown(): void {
         if (this.y >= Level.levelHeight) {
-            GameplayUi.Instance.addMovementWarningToLog(`At level edge.`);
-            return;
+            GameManager.Instance.goOutsideArea();
         }
-        if (Level.isUntravellableAt(this.x, this.y + 1)) {
+        else if (Level.isUpstairsAt(this.x, this.y + 1)) {
+            this.oldX = this.x;
+            this.oldY = this.y;
+            this.setPosition(this.x, ++this.y);
+            GameManager.Instance.ascendFloor()
+        }
+        else if (Level.isUntravellableAt(this.x, this.y + 1)) {
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }
         else if (Level.isMonsterAt(this.x, this.y + 1)) {
@@ -122,8 +133,7 @@ export class Player extends Entity {
         else {
             this.oldX = this.x;
             this.oldY = this.y;
-            this.y++;
-            this.setPosition(this.x, this.y);
+            this.setPosition(this.x, ++this.y);
         }
     }
 

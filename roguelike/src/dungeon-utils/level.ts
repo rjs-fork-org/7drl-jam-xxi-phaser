@@ -61,8 +61,7 @@ export class Level {
      * Does not include monsters as that's a separate check. 
      */
     public static isUntravellableAt(x: number, y: number): boolean {
-        // console.log(Level.dungeonBaseLayer[y][x]);
-        return Level.dungeonBaseLayer[y][x] === '#';
+        return "#ȹ⚶=".includes(Level.dungeonBaseLayer[y][x]);
     }
 
     private static getCharAt(x: number, y: number): string {
