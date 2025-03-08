@@ -1,7 +1,6 @@
-import { GameObjects } from "phaser";
+import { Entity } from "./entity";
 import { Attributes } from "../character-creation/attributes";
 import { AncestryType } from "../enums/ancestry-type";
-import { Entity } from "./entity";
 import { GameplayUi } from "../scenes/GameplayUi";
 import { Level } from "../dungeon-utils/level";
 import { GameManager } from "../game-manager";
@@ -36,7 +35,7 @@ export class Player extends Entity {
 
     /** Sets up the singleton. */
     constructor() {
-        super();
+        super(42, 42);
         Player.Instance = this;
     }
 

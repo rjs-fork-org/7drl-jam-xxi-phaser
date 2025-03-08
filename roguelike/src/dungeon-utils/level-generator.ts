@@ -1,3 +1,4 @@
+import { Foe } from "../entities/foe";
 import { Player } from "../entities/player";
 import { GameplayUi } from "../scenes/GameplayUi";
 import { Level } from "./level";
@@ -10,19 +11,20 @@ import { Level } from "./level";
  * Levels consist of base/ground layer which doesn't change on it's own
  * and items and monsters and temporary environmental effects that are placed 
  * on top of that the base layer. For pathfinding, attacks, and movement checks
- * a combined map is made (which is what is visible for the player).
+ * a combined map can be made (which is what is visible for the player).
  * 
  * Monsters, player, items and temporary environmental effects are gameobjects 
  * which are not saved to 2D grid but they are rather a collection of 
- * gameobjects. This will save some memory. Enemies take 1 space and multiple
+ * gameobjects in hash map. Enemies take 1 space and multiple
  * enemies can't be in the same space. Environmental effects are directly over
- * base layer and then comes enemies. 
+ * base layer and then comes items and then enemies. 
  * 
  * This script makes the maps and enemy/item collections and sends them forward
  * to LevelRenderer.ts (TODO) and/or other systems to be processed.
  * 
- * Level coordinates begin from x0, y0 at bottom left corner to make
- * calculations simpler. 
+ * Level coordinates begin from x0, y0 at top left corner. Coordinante is 
+ * accessed by searching levelbase[y][x] (string array), or by querying maps
+ * with key x,y.
  * */
 export class LevelGenerator {
 
@@ -53,10 +55,12 @@ export class LevelGenerator {
      * @param floor what floor to generate. Some are premade. Difficulty increases. From -1 to 72.
      */
     public static generateDungeonRoomForHeavensGate(): string[] {
+        LevelGenerator.levelCleanup();
+
         // full demo should have about 72 + 3 floors + yard + first floor.
         const floor = Math.min(Level.currentFloor, 75);
         const room: string[] = [];
-        let  playerSpawnX: number = 0;
+        let playerSpawnX: number = 0;
         let playerSpawnY: number = 0;
         const stairSpawnPositionsXY: number[][] = [[8, 2], [2, 1], [1, 7], [8, 7]]
         if (floor === -1) {
@@ -147,19 +151,34 @@ export class LevelGenerator {
             room.push("#........#")
             room.push("#........#")
             room.push(" #......# ")
-            room.push("  ##==##  ")
+            room.push("  ######  ")
             let stairRow = room[stairSpawnPositionsXY[floor][1]];
             console.log('stair should go to place: ' + stairSpawnPositionsXY[floor][0]);
-            stairRow = stairRow.slice(0, stairSpawnPositionsXY[floor][0]) + '^' + stairRow.slice(stairSpawnPositionsXY[floor][0] + 1)           ;
+            stairRow = stairRow.slice(0, stairSpawnPositionsXY[floor][0]) + '^' + stairRow.slice(stairSpawnPositionsXY[floor][0] + 1);
             console.log(stairRow);
             room[stairSpawnPositionsXY[floor][1]] = stairRow;
             playerSpawnX = Player.Instance.x;
             playerSpawnY = Player.Instance.y;
         }
 
-        Level.dungeonBaseLayer = room.flat();
+        // generate monsters
+        for (let y = 0; y < room.length; y++) {
+            for (let x = 0; x < room[y].length; x++) {
+                if (room[y][x] === '.' && Phaser.Math.Between(1, 100) >= 5) {
+                    // Level.dungeonMonsters.set(`${x},${y}`, new Foe());
+                }
+            }
+        }
+
+        Level.dungeonBaseLayer = room;
 
         Player.Instance.setPosition(playerSpawnX, playerSpawnY, false);
         return room;
+    }
+
+    /** Needs to be done to flush the level and monsters before making new ones. */
+    private static levelCleanup(): void {
+        Level.destroyItemsMonstersAndBaseLayerTexts();
+        Player.Instance.charText?.destroy();
     }
 }

@@ -1,5 +1,4 @@
 import { GameObjects } from "phaser";
-import { Player } from "./player";
 import { LevelRenderer } from "../scenes/LevelRenderer";
 import { Level } from "../dungeon-utils/level";
 
@@ -17,6 +16,10 @@ export abstract class Entity {
     public oldX: number;
     public oldY: number;
     public character: string = '@';
+
+    constructor(x: number, y: number) {
+        this.x = x, this.y = y;
+    }
 
     /** Sets ASCII's position position. */
     public setPosition(x: number, y: number, alsoSetLocation: boolean = true): void {

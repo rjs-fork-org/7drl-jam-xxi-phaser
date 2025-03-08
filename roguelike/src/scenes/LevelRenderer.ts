@@ -64,10 +64,7 @@ export class LevelRenderer extends Scene {
 
     /** Spawns everything else but monsters and player. */
     public spawnMapEntities(): void {
-        // first destroy entities.
-        Level.destroyItemsMonstersAndBaseLayerTexts();
-        Player.Instance.charText?.destroy();
-
+        // Old entities are destroyed at this point
         for (let i = 0; i < Level.dungeonBaseLayer.length; i++) {
             const row = Level.dungeonBaseLayer[i];
 
@@ -93,10 +90,11 @@ export class LevelRenderer extends Scene {
             }
         }
         this.spawnPlayer();
+        this.spawnMonsters();
     }
 
     /** Spawns player to field. */
-    public spawnPlayer(): void {
+    private spawnPlayer(): void {
         const x = Player.Instance.x;
         const y = Player.Instance.y;
         const char: GameObjects.Text = this.add.text(
@@ -110,6 +108,10 @@ export class LevelRenderer extends Scene {
                     this.entitySpawnConfigs.get('@')?.description ?? '');
             });
         Player.Instance.charText = char;
+    }
+
+    private spawnMonsters(): void {
+
     }
 
     /** Returns tile coordinates from grid coordinates. */
