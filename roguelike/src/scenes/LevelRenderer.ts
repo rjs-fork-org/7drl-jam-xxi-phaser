@@ -19,9 +19,16 @@ export class LevelRenderer extends Scene {
 
     /** Style and other info for spawned entities */
     private entitySpawnConfigs: Map<string, EntityConfig> = new Map<string, EntityConfig>([
-        ['@', { textStyle: {} }],
-        ['.', { textStyle: { color: "#51553DFF" } }],
-        ['#', { textStyle: { color: "#2C3112FF", backgroundColor: "#B143B1FF" }, description: 'Wall.' }]
+        ['@', { textStyle: {}, description: "That's me!" }],
+        ['.', { textStyle: { color: "#51553DFF" }, description: 'Ground/Floor' }],
+        ['#', { textStyle: { color: "#cccccc", backgroundColor: "#424242FF" }, description: 'Wall' }],
+        ['=', { textStyle: { color: "#FFFFFFFF", backgroundColor: "#644A22FF" }, description: 'Door' }],
+        ['~', { textStyle: { color: "#ffffff", backgroundColor: "#644A22FF" }, description: 'Writing' }],
+        ['ȹ', { textStyle: { color: "#00AA5BFF", padding: { bottom: 20 } }, description: 'Tree' }],
+        ['^', { textStyle: { color: "#ffffff", backgroundColor: '#41473FFF' }, description: 'Ascend' }],
+        ['⚘', { textStyle: { color: "#40CE2EFF", }, description: 'Flower' }],
+        ['⚶', { textStyle: { color: "#397E00FF", }, description: 'Tree' }],
+        [':', { textStyle: { color: "#224B01FF", }, description: 'Paving' }],
     ]);
 
     constructor() {
