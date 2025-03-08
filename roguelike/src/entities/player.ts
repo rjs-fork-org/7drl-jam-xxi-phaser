@@ -57,9 +57,15 @@ export class Player extends Entity {
     private name: string = 'John Doe';
     /** Attributes/stat points are between 0 and 3 (Avg/Good/Great/Divine). */
     private attributes: Attributes;
-    /** Maximum hit points. Increases by 5 for every con. */
+    /** 
+     * Maximum hit points. 
+     * Increases by 5 for every con for the player.
+     */
     private maxHitPoints: number = 25;
-    /** Current hit points of the player. Regenerates on their own. */
+    /** 
+     * Current hit points. 
+     * Regenerates on their own on player.
+     */
     private currentHitPoints: number = this.maxHitPoints;
     /** Maximum mana. */
     private maxMana: number = 5;

@@ -1,9 +1,26 @@
+/**
+ * Duplicated in player due to TS error @see Player. 
+ * Could be refactored to interface & utility functions.
+ * Make sure the code is the same on both.
+ */
+
 import { GameObjects } from "phaser";
 import { LevelRenderer } from "../scenes/LevelRenderer";
 import { Level } from "../dungeon-utils/level";
 
 /** Base class for player and enemies. */
 export abstract class Entity {
+    /** 
+     * Maximum hit points. 
+     * Increases by 5 for every con for the player.
+     */
+    public maxHitPoints: number = 25;
+    /** 
+     * Current hit points. 
+     * Regenerates on their own on player.
+     */
+    public currentHitPoints: number = this.maxHitPoints;
+
     // Representation in the field.
     /** This moves in the level and represents the character, @. */
     public charText: GameObjects.Text;

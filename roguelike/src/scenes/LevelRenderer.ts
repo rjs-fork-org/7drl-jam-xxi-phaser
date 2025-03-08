@@ -20,6 +20,7 @@ export class LevelRenderer extends Scene {
     /** Style and other info for spawned entities */
     private entitySpawnConfigs: Map<string, EntityConfig> = new Map<string, EntityConfig>([
         ['@', { textStyle: {}, description: "That's me!" }],
+        // Environment
         ['.', { textStyle: { color: "#51553DFF" }, description: 'Ground/Floor' }],
         ['#', { textStyle: { color: "#cccccc", backgroundColor: "#424242FF" }, description: 'Wall' }],
         ['=', { textStyle: { color: "#FFFFFFFF", backgroundColor: "#644A22FF" }, description: 'Door' }],
@@ -29,7 +30,14 @@ export class LevelRenderer extends Scene {
         ['⚘', { textStyle: { color: "#40CE2EFF", }, description: 'Flower' }],
         ['⚶', { textStyle: { color: "#397E00FF", }, description: 'Tree' }],
         [':', { textStyle: { color: "#224B01FF", }, description: 'Paving' }],
+        // Enemies
+        ['W', { textStyle: { color: "#ff8000", }, description: 'Wurm' }],
+        ['i', { textStyle: { color: "#ff8000", }, description: 'Imp' }],
+        ['T', { textStyle: { color: "#ff8000", }, description: 'Troll' }],
+        ['C', { textStyle: { color: "#ff8000", }, description: 'Centipede' }],
+        ['h', { textStyle: { color: "#ff8000", }, description: 'Hobgoblin' }],
     ]);
+
 
     constructor() {
         super('LevelRenderer');
@@ -111,7 +119,18 @@ export class LevelRenderer extends Scene {
     }
 
     private spawnMonsters(): void {
-
+        Level.dungeonMonsters.forEach((m) => {
+            const char: GameObjects.Text = this.add.text(
+                this.gridX(m.x), this.gridY(m.y), m.character,
+                { fontSize: 52, ...this.entitySpawnConfigs.get(m.character)?.textStyle }
+            )
+                .setOrigin(0.5, 0.5)
+                .setInteractive()
+                .on('pointerover', () => {
+                    GameplayUi.Instance.updateYouSeeText(
+                        this.entitySpawnConfigs.get(m.character)?.description ?? '');
+                });
+        })
     }
 
     /** Returns tile coordinates from grid coordinates. */
