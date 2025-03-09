@@ -8,6 +8,17 @@ import { Level } from "../dungeon-utils/level";
 
 /** Base class for player and enemies. */
 abstract class Entity {
+    /** 
+     * Maximum hit points. 
+     * Increases by 5 for every con for the player.
+     */
+    protected maxHitPoints: number = 25;
+    /** 
+     * Current hit points. 
+     * Regenerates on their own on player.
+     */
+    protected currentHitPoints: number = this.maxHitPoints;
+
     // Representation in the field.
     /** This moves in the level and represents the character, @. */
     public charText: GameObjects.Text;
@@ -19,6 +30,7 @@ abstract class Entity {
     public y: number;
     public oldX: number;
     public oldY: number;
+
     public character: string = '@';
 
     constructor(x: number, y: number) {
@@ -31,10 +43,25 @@ abstract class Entity {
         this.y = y;
         if (alsoSetLocation) {
             /** Setting location. */
-            // console.log('also setting location of text');
             this.charText.setPosition(LevelRenderer.Instance.gridX(this.x), LevelRenderer.Instance.gridY(this.y))
             Level.baseLayerTexts.get(`${this.oldY},${this.oldX}`)?.setAlpha(1);
             Level.baseLayerTexts.get(`${this.y},${this.x}`)?.setAlpha(0);
+        }
+    }
+
+    /** 
+     * When a player attacks a monster or monster attacks a player
+     * decrease some hit points based on weapon and die if they reach 0. 
+     */
+    public takeDamage(amount: number): void {
+        this.currentHitPoints -= amount;
+        if (this.currentHitPoints <= 0) {
+            this.charText?.setAlpha(0);
+            LevelRenderer.Instance.entityLeaveTile(this.x, this.y);
+            const deleted = Level.dungeonMonsters.delete(`${this.x},${this.y}`);
+            if (deleted) {
+                console.log('monster deleted at : ' + `${this.x},${this.y}`)
+            }
         }
     }
 }
@@ -57,16 +84,6 @@ export class Player extends Entity {
     private name: string = 'John Doe';
     /** Attributes/stat points are between 0 and 3 (Avg/Good/Great/Divine). */
     private attributes: Attributes;
-    /** 
-     * Maximum hit points. 
-     * Increases by 5 for every con for the player.
-     */
-    private maxHitPoints: number = 25;
-    /** 
-     * Current hit points. 
-     * Regenerates on their own on player.
-     */
-    private currentHitPoints: number = this.maxHitPoints;
     /** Maximum mana. */
     private maxMana: number = 5;
     /** Current mana of the player. Regenerates on their own. */
@@ -104,6 +121,7 @@ export class Player extends Entity {
         }
         else if (Level.isMonsterAt(this.x + 1, this.y)) {
             // not ok to move, attack monster instead
+            this.attackMonster(this.x + 1, this.y);
         }
         else {
             // ok to move
@@ -180,6 +198,14 @@ export class Player extends Entity {
             this.oldY = this.y;
             this.setPosition(this.x, ++this.y);
         }
+    }
+
+    // Attacking
+
+    private attackMonster(x: number, y: number) {
+        const monster = Level.dungeonMonsters.get(`${this.x + 1},${this.y}`);
+        console.log(monster?.currentHitPoints);
+        monster!.takeDamage(5);
     }
 
     // Character creation

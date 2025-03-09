@@ -148,9 +148,9 @@ export class LevelRenderer extends Scene {
 
     /** 
      * Can be used to redraw the things that were hidden 
-     * when prev tile owner was here. 
+     * when prev tile owner was here.
      */
-    public entityLeaveTile(): void {
-
+    public entityLeaveTile(x: number, y: number): void {
+        Level.baseLayerTexts.get(`${y},${x}`)?.setAlpha(1);
     }
 }

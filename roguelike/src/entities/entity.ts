@@ -38,6 +38,22 @@ export abstract class Entity {
         this.x = x, this.y = y;
     }
 
+    /** 
+     * When a player attacks a monster or monster attacks a player
+     * decrease some hit points based on weapon and die if they reach 0. 
+     */
+    public takeDamage(amount: number): void {
+        this.currentHitPoints -= amount;
+        if (this.currentHitPoints <= 0) {
+            this.charText?.setAlpha(0);
+            LevelRenderer.Instance.entityLeaveTile(this.x, this.y);
+            const deleted = Level.dungeonMonsters.delete(`${this.x},${this.y}`);
+            if (deleted) {
+                console.log('monster deleted at : ' + `${this.x},${this.y}`)
+            }
+        }
+    }
+
     /** Sets ASCII's position position. */
     public setPosition(x: number, y: number, alsoSetLocation: boolean = true): void {
         this.x = x;

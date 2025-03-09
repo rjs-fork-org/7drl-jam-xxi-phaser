@@ -53,7 +53,7 @@ export class Level {
 
     /** Tile contains monster? */
     public static isMonsterAt(x: number, y: number): boolean {
-        return false;
+        return this.dungeonMonsters.has(`${x},${y}`);
     }
 
     /** 

@@ -33,7 +33,6 @@ export class GameManager {
         Level.currentFloor = -1;
         LevelGenerator.generateDungeonRoomForHeavensGate();
         LevelRenderer.Instance.spawnMapEntities();
-        Level.baseLayerTexts.get(`${Player.Instance.y},${Player.Instance.x}`)?.setAlpha(0);
     }
 
     /** When in dungeon the player can go up a level from a '^' char */
@@ -42,6 +41,7 @@ export class GameManager {
         LevelGenerator.generateDungeonRoomForHeavensGate();
         LevelRenderer.Instance.spawnMapEntities();
         Level.baseLayerTexts.get(`${Player.Instance.y},${Player.Instance.x}`)?.setAlpha(0);
+        GameplayUi.Instance.updateYouSeeText('');
     }
 
     /** 
