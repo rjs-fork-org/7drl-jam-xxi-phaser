@@ -94,7 +94,7 @@ export class LevelGenerator {
         }
         else if (floor === 0) {
             room.push("  ######  ")
-            room.push(" #..~~..# ")
+            room.push(" #......# ")
             room.push("#.......^#")
             room.push("#........#")
             room.push("#........#")
@@ -161,10 +161,16 @@ export class LevelGenerator {
             playerSpawnX = Player.Instance.x;
             playerSpawnY = Player.Instance.y;
         }
+        Player.Instance.setPosition(playerSpawnX, playerSpawnY, false);
 
         // generate monsters
         for (let y = 0; y < room.length; y++) {
             for (let x = 0; x < room[y].length; x++) {
+                // don't spawn monster to player's starting tile
+                if (y === playerSpawnY && x === playerSpawnX) {
+                    continue;
+                }
+
                 if (room[y][x] === '.' && Phaser.Math.Between(1, 100) <= 5) {
                     let foe = Foes.generateFoe();
                     foe.x = x;
@@ -176,7 +182,6 @@ export class LevelGenerator {
 
         Level.dungeonBaseLayer = room;
 
-        Player.Instance.setPosition(playerSpawnX, playerSpawnY, false);
         return room;
     }
 

@@ -21,15 +21,15 @@ export class LevelRenderer extends Scene {
     private entitySpawnConfigs: Map<string, EntityConfig> = new Map<string, EntityConfig>([
         ['@', { textStyle: {}, description: "That's me!" }],
         // Environment
-        ['.', { textStyle: { color: "#51553DFF" }, description: 'Ground/Floor' }],
-        ['#', { textStyle: { color: "#cccccc", backgroundColor: "#424242FF" }, description: 'Wall' }],
+        ['.', { textStyle: { color: "#51553DFF" }, description: 'Ground' }],
+        ['#', { textStyle: { color: "#cccccc", backgroundColor: "#424242FF" }, description: 'Stone wall' }],
         ['=', { textStyle: { color: "#FFFFFFFF", backgroundColor: "#644A22FF" }, description: 'Wooden door' }],
         ['~', { textStyle: { color: "#ffffff", backgroundColor: "#644A22FF" }, description: 'Writing' }],
         ['ȹ', { textStyle: { color: "#00AA5BFF", padding: { bottom: 20 } }, description: 'Tree' }],
         ['^', { textStyle: { color: "#ffffff", backgroundColor: '#41473FFF' }, description: 'Ascend' }],
         ['⚘', { textStyle: { color: "#40CE2EFF", }, description: 'Flower' }],
         ['⚶', { textStyle: { color: "#397E00FF", }, description: 'Tree' }],
-        [':', { textStyle: { color: "#224B01FF", }, description: 'Paving' }],
+        [':', { textStyle: { color: "#224B01FF", }, description: 'Rock paving' }],
         // Enemies
         ['W', { textStyle: { color: "#ff8000", }, description: 'Wurm' }],
         ['i', { textStyle: { color: "#ff8000", }, description: 'Imp' }],
