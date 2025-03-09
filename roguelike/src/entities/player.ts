@@ -145,7 +145,7 @@ export class Player extends Entity {
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }
         else if (Level.isMonsterAt(this.x - 1, this.y)) {
-            // not ok to move, attack monster instead
+            this.attackMonster(this.x - 1, this.y);
         }
         else {
             this.oldX = this.x;
@@ -168,7 +168,7 @@ export class Player extends Entity {
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }
         else if (Level.isMonsterAt(this.x, this.y - 1)) {
-            // not ok to move, attack monster instead
+            this.attackMonster(this.x, this.y - 1);
         }
         else {
             this.oldX = this.x;
@@ -191,7 +191,7 @@ export class Player extends Entity {
             GameplayUi.Instance.addMovementWarningToLog(`Bump.`);
         }
         else if (Level.isMonsterAt(this.x, this.y + 1)) {
-            // not ok to move, attack monster instead
+            this.attackMonster(this.x, this.y + 1);
         }
         else {
             this.oldX = this.x;
@@ -203,8 +203,8 @@ export class Player extends Entity {
     // Attacking
 
     private attackMonster(x: number, y: number) {
-        const monster = Level.dungeonMonsters.get(`${this.x + 1},${this.y}`);
-        console.log(monster?.currentHitPoints);
+        const monster = Level.dungeonMonsters.get(`${x},${y}`);
+        // console.log(monster?.currentHitPoints);
         monster!.takeDamage(5);
     }
 
