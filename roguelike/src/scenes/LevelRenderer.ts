@@ -23,7 +23,7 @@ export class LevelRenderer extends Scene {
         // Environment
         ['.', { textStyle: { color: "#51553DFF" }, description: 'Ground/Floor' }],
         ['#', { textStyle: { color: "#cccccc", backgroundColor: "#424242FF" }, description: 'Wall' }],
-        ['=', { textStyle: { color: "#FFFFFFFF", backgroundColor: "#644A22FF" }, description: 'Door' }],
+        ['=', { textStyle: { color: "#FFFFFFFF", backgroundColor: "#644A22FF" }, description: 'Wooden door' }],
         ['~', { textStyle: { color: "#ffffff", backgroundColor: "#644A22FF" }, description: 'Writing' }],
         ['ȹ', { textStyle: { color: "#00AA5BFF", padding: { bottom: 20 } }, description: 'Tree' }],
         ['^', { textStyle: { color: "#ffffff", backgroundColor: '#41473FFF' }, description: 'Ascend' }],
@@ -116,6 +116,7 @@ export class LevelRenderer extends Scene {
                     this.entitySpawnConfigs.get('@')?.description ?? '');
             });
         Player.Instance.charText = char;
+        Level.baseLayerTexts.get(`${Player.Instance.y},${Player.Instance.x}`)?.setAlpha(0);
     }
 
     private spawnMonsters(): void {
@@ -130,6 +131,8 @@ export class LevelRenderer extends Scene {
                     GameplayUi.Instance.updateYouSeeText(
                         this.entitySpawnConfigs.get(m.character)?.description ?? '');
                 });
+            m.charText = char;
+            Level.baseLayerTexts.get(`${m.y},${m.x}`)?.setAlpha(0);
         })
     }
 

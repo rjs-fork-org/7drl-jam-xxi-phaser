@@ -71,7 +71,7 @@ export class LevelGenerator {
             room.push("...####.⚶.")
             room.push("..######..")
             room.push("..######..")
-            room.push("..⚘#^^#⚘..")
+            room.push("..⚘#^=#⚘..")
             room.push("....::....")
             room.push("..ȹ.::.ȹ..")
             room.push("....::....")
@@ -93,8 +93,8 @@ export class LevelGenerator {
             // there's many more to take.
         }
         else if (floor === 0) {
-            room.push("..######..")
-            room.push(".#..~~..#.")
+            room.push("  ######  ")
+            room.push(" #..~~..# ")
             room.push("#.......^#")
             room.push("#........#")
             room.push("#........#")
@@ -102,7 +102,7 @@ export class LevelGenerator {
             room.push("#........#")
             room.push("#........#")
             room.push("⚘#......#⚘")
-            room.push(".⚘##==##⚘.")
+            room.push(" ⚘##==##⚘ ")
             // room[stairSpawnPositionsXY[floor[1][stairSpawnPositionsXY[floor][0]] = '^';
             playerSpawnX = 4;
             playerSpawnY = 8;
